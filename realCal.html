@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .calculator-container {
+      background-color: #1c1c1c;
+      padding: 25px;
+      border-radius: 30px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      width: 320px;
+    }
+
+    #display {
+      background-color: #1c1c1c;
+      color: #ffffff;
+      font-size: 48px;
+      text-align: right;
+      padding: 20px;
+      margin-bottom: 20px;
+      min-height: 60px;
+      word-wrap: break-word;
+      border-bottom: 1px solid #333;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    button {
+      height: 65px;
+      width: 65px;
+      border-radius: 50%;
+      border: none;
+      font-size: 24px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background-color: #333333;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #444444;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: scale(0.92);
+    }
+
+    .operator {
+      background-color: #ff9500;
+    }
+
+    .clear-btn {
+      background-color: #a5a5a5;
+      color: black;
+      grid-column: span 2;
+      width: 142px;
+      border-radius: 35px;
+    }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div id="display">0</div>
+
+        <div class="button-grid">
+            <button class="clear-btn" onclick="clearCalculation()">Clear</button>
+            <button class="operator" onclick="addToCalculation('/')">/</button>
+            <button class="operator" onclick="addToCalculation('*')">*</button>
+
+            <button onclick="addToCalculation('7')">7</button>
+            <button onclick="addToCalculation('8')">8</button>
+            <button onclick="addToCalculation('9')">9</button>
+            <button class="operator" onclick="addToCalculation('-')">-</button>
+
+            <button onclick="addToCalculation('4')">4</button>
+            <button onclick="addToCalculation('5')">5</button>
+            <button onclick="addToCalculation('6')">6</button>
+            <button class="operator" onclick="addToCalculation('+')">+</button>
+
+            <button onclick="addToCalculation('1')">1</button>
+            <button onclick="addToCalculation('2')">2</button>
+            <button onclick="addToCalculation('3')">3</button>
+            <button class="operator" onclick="calculateResult()">=</button>
+
+            <button onclick="addToCalculation('0')" style="grid-column: span 2; width: 142px; border-radius: 35px;">0</button>
+            <button onclick="addToCalculation('.')">.</button>
+
+        </div>
+    </div>
+    <script>
+        let calculation = '';
+
+    function updateDisplay() {
+      const displayElement = document.getElementById('display');
+      displayElement.innerText = calculation === '' ? '0' : calculation;
+    }
+
+    function addToCalculation(value) {
+      calculation += value;
+      updateDisplay();
+    }
+
+    function calculateResult() {
+      try {
+        // Step 5q: Convert string to math
+        // We use eval() and convert it back to a string for further operations
+        calculation = eval(calculation).toString();
+        updateDisplay();
+      } catch (error) {
+        calculation = '';
+        document.getElementById('display').innerText = 'Error';
+      }
+    }
+
+    function clearCalculation() {
+      calculation = '';
+      updateDisplay();
+    }
+    </script>
+</body>
+</html>
